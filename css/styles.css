@@ -1,0 +1,28 @@
+html, body, #wrapper{
+    height: 100%;
+    width: 100%;
+}
+nav{
+    height: 0px;
+    width: 100%;
+    position: fixed;
+    background-color: black;
+    z-index: 1;
+
+}
+#footer{
+    height: 100px; //or whatever. Note px not %.
+    width: 100%;
+}
+#googleMap{
+    height: 100%;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 0;
+
+}
