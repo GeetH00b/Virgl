@@ -3,13 +3,16 @@
       // prompted by your browser. If you see the error "The Geolocation service
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
+      var map;
 
 
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('googleMap'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 6
+          zoom: 13,
+          disableDefaultUI:true,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
 
@@ -33,7 +36,22 @@
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
+
+        ///LISTENER BAJO CONSTRUCCION
+        map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+        google.maps.event.addListener(map, 'click', function(event) {placeMarker(event.latLng);});
+
+
       }
+      ///COLOCAR MARCADORES
+      function placeMarker(location) {
+  		var marker = new google.maps.Marker({
+    	position: location,
+    	map: map,
+  		});
+  		
+}
 
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
