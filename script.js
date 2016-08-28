@@ -3,6 +3,13 @@
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
 var map
+///variable para el manejo de la ficha de tiempo y fecha
+var date
+///variable para guardar valor nnumerico del dia de la semana (0-6 -> domingo-sabado)
+var day
+var poslat
+var poslng
+
 function initMap() {
     
     //varibale para el mapa  
@@ -15,7 +22,7 @@ function initMap() {
     
     var infoWindow = new google.maps.InfoWindow({map: map});
 
-    // Try HTML5 geolocation.
+    // encontrar al cliente sobre el mapa si el cliente lo permite
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -33,11 +40,22 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
-
     //map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
     //Un listner en el mapa, checa si hay un click, se corre un funcion evento con la cual se pone el markador
-    google.maps.event.addListener(map, 'click', function(event) {placeMarker(event.latLng);});
+    google.maps.event.addListener(map, 'click', function(event) {placeMarker(event.latLng);
+      //generar ficha de fecha al crear un marcador nuevo, y de pasada obtener el dia de la semana en el que se creo
+      date= new Date();
+      console.log(date);
+      day=date.getDay();
+      console.log(day);
+      
+      poslat=event.latLng.lat();
+      poslng=event.latLng.lng();
+      console.log(poslat , poslng);
+
+
+
+    });
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -85,9 +103,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 //     });
 // }
 
-//Edu haciendo que funcionen los marcadores
+//haciendo que funcionen los marcadores
 var canPlace = false;
-var audio = new Audio('images/Click2-Sebastian-759472264.mp3');
+//var audio = new Audio('images/Click2-Sebastian-759472264.mp3');
 var dia = 'images/virgl_marker_today.png';
 var lastPlacedLoc;
 
@@ -145,7 +163,7 @@ var htmlInseguro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_inseguro.png'> </td>"+
                     "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
-                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
 //Ventanas de distintos delitos
@@ -172,7 +190,7 @@ var htmlRobo = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_robo.png'> </td>"+
                     "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
-                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
 function windowRobo(){
@@ -198,7 +216,7 @@ var htmlAsalto = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_asalto.png'> </td>"+
                     "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
-                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
 function windowAsalto(){
@@ -225,7 +243,7 @@ var htmlCarro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_carro.png'> </td>"+
                     "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
-                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
 function windowCarro(){
@@ -251,7 +269,7 @@ var htmlHomicidio = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_homicidio.png'> </td>"+
                     "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
-                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
 function windowHomicidio(){
