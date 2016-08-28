@@ -64,7 +64,7 @@
 
 
 
-//Intentando hacer searchbar funcional<
+//Intentando hacer searchbar funcional
       function init() {
    var map = new google.maps.Map(document.getElementById('map-canvas'), {
      center: {
