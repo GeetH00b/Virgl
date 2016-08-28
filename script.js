@@ -9,18 +9,19 @@ var date
 var day
 var poslat
 var poslng
+var infowindow 
 
 function initMap() {
     
     //varibale para el mapa  
     map = new google.maps.Map(document.getElementById('googleMap'), {
         center: {lat: -34.397, lng: 150.644},
-        zoom: 13,
+        zoom: 15,
         disableDefaultUI:true,
         mapTypeId:google.maps.MapTypeId.ROADMAP
     });
     
-    var infoWindow = new google.maps.InfoWindow({map: map});
+    // infowindow = new google.maps.InfoWindow({map: map});
 
     // encontrar al cliente sobre el mapa si el cliente lo permite
     if (navigator.geolocation) {
@@ -135,23 +136,23 @@ var lastPlacedLoc;
 // }
 
 var html =  "<table>"+
-                "<tr id = 'select' onclick='windowInseguro()'>"+
-                    "<td><img src='images/virgl_icon_inseguro.png' onclick='windowInseguro()'></td>"+
+                "<tr id = 'select' onclick='infowindow.close();windowInseguro();'>"+
+                    "<td><img src='images/virgl_icon_inseguro.png'></td>"+
                     "<td><hi>Inseguridad</hi></td>"+
                 "</tr>"+
-                "<tr id = 'select' onclick='windowRobo()'>"+
+                "<tr id = 'select' onclick='infowindow.close();windowRobo()'>"+
                     "<td><img src='images/virgl_icon_robo.png'></td>"+
                     "<td><hi>Robo</hi></td>"+
                 "</tr>"+
-                "<tr id = 'select' onclick='windowAsalto()'>"+
+                "<tr id = 'select' onclick='infowindow.close();windowAsalto()'>"+
                     "<td><img src='images/virgl_icon_asalto.png'></td>"+
                     "<td><hi>Asalto</hi></td>"+
                 "</tr>"+
-                "<tr id = 'select' onclick='windowCarro()'>"+
+                "<tr id = 'select' onclick='infowindow.close();windowCarro()'>"+
                     "<td><img src='images/virgl_icon_carro.png'></td>"+
                     "<td><hi>Robo Vehicular</hi></td>"+
                 "</tr>"+
-                "<tr id = 'select' onclick='windowHomicidio()'>"+
+                "<tr id = 'select' onclick='infowindow.close();windowHomicidio()'>"+
                     "<td><img src='images/virgl_icon_homicidio.png'></td>"+
                     "<td><hi>Homicidio</hi></td>"+
                 "</tr>"+
@@ -162,8 +163,8 @@ var crimeIcon;
 var htmlInseguro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_inseguro.png'> </td>"+
-                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
-                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
+                    "<td><form action = ''><input type='submit' placeholder='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
             "<table>";
 //Ventanas de distintos delitos
@@ -178,7 +179,7 @@ function windowInseguro(){
     //crimeIcon = "<img src = 'images/virgl_icon_inseguro.png'>";
 
     //variable que que es la info Window que sale con el marker
-    var infowindow = new google.maps.InfoWindow({
+     infowindow = new google.maps.InfoWindow({
         content: htmlInseguro});
         
     //se crean el mapa y el marcador
@@ -189,7 +190,7 @@ function windowInseguro(){
 var htmlRobo = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_robo.png'> </td>"+
-                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
                     "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
@@ -204,7 +205,7 @@ function windowRobo(){
     //crimeIcon = "<img src = 'images/virgl_icon_robo.png'>";
 
     //variable que que es la info Window que sale con el marker
-    var infowindow = new google.maps.InfoWindow({
+     infowindow = new google.maps.InfoWindow({
         content: htmlRobo});
         
     //se crean el mapa y el marcador
@@ -215,7 +216,7 @@ function windowRobo(){
 var htmlAsalto = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_asalto.png'> </td>"+
-                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
                     "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
@@ -230,7 +231,7 @@ function windowAsalto(){
     //crimeIcon = "<img src = 'images/virgl_icon_asalto.png'>";
 
     //variable que que es la info Window que sale con el marker
-    var infowindow = new google.maps.InfoWindow({
+     infowindow = new google.maps.InfoWindow({
         content: htmlAsalto});
         
     //se crean el mapa y el marcador
@@ -242,7 +243,7 @@ function windowAsalto(){
 var htmlCarro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_carro.png'> </td>"+
-                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
                     "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
@@ -257,7 +258,7 @@ function windowCarro(){
     //crimeIcon = "<img src = 'images/virgl_icon_carro.png'>";
 
     //variable que que es la info Window que sale con el marker
-    var infowindow = new google.maps.InfoWindow({
+     infowindow = new google.maps.InfoWindow({
         content: htmlCarro});
         
     //se crean el mapa y el marcador
@@ -268,7 +269,7 @@ function windowCarro(){
 var htmlHomicidio = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_homicidio.png'> </td>"+
-                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
                     "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
                 "</tr>"+
             "<table>";
@@ -283,7 +284,7 @@ function windowHomicidio(){
     //crimeIcon = "<img src = 'images/virgl_icon_homicidio.png'>";
 
     //variable que que es la info Window que sale con el marker
-    var infowindow = new google.maps.InfoWindow({
+     infowindow = new google.maps.InfoWindow({
         content: htmlHomicidio});
         
     //se crean el mapa y el marcador
@@ -313,7 +314,7 @@ function placeMarker(location) {
         });
         
         //variable que que es la info Window que sale con el marker
-        var infowindow = new google.maps.InfoWindow({content: html});
+        infowindow = new google.maps.InfoWindow({content: html});
         
         //se crean el mapa y el marcador
         infowindow.open(map,marker);
@@ -321,7 +322,7 @@ function placeMarker(location) {
         canPlace = false;
         document.getElementById('buttonimg').src='images/virgl_button_up.png';
         lastPlacedLoc = location;
-        setTimeout(function () { infowindow.close(); }, 5000);
+        ///setTimeout(function () { infowindow.close(); }, 5000);
     }
 }
 function placeLocMarker(pos) { 
