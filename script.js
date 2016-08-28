@@ -1,118 +1,329 @@
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
+var map
+function initMap() {
+    
+    //varibale para el mapa  
+    map = new google.maps.Map(document.getElementById('googleMap'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 13,
+        disableDefaultUI:true,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    });
+    
+    var infoWindow = new google.maps.InfoWindow({map: map});
 
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      var map;
-
-
-
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('googleMap'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 13,
-          disableDefaultUI:true,
-          mapTypeId:google.maps.MapTypeId.ROADMAP
-        });
-        var infoWindow = new google.maps.InfoWindow({map: map});
-
-       
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
             };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Location found.');
             map.setCenter(pos);
-          }, function() {
+            placeLocMarker(pos);
+        }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
 
-        ///LISTENER BAJO CONSTRUCCION
-        map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    //map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
-        google.maps.event.addListener(map, 'click', function(event) {placeMarker(event.latLng);});
+    //Un listner en el mapa, checa si hay un click, se corre un funcion evento con la cual se pone el markador
+    google.maps.event.addListener(map, 'click', function(event) {placeMarker(event.latLng);});
+}
 
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                            'Error: The Geolocation service failed.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+                            //setTimeout(function () { infowindow.close(); }, 5000);
+}
 
-      }
-      ///COLOCAR MARCADORES
-      function placeMarker(location) {
-  		var marker = new google.maps.Marker({
-    	position: location,
-    	map: map,
-  		});
-  		
+//Intentando hacer searchbar funcional
+// function init() {
+//     var map = new google.maps.Map(document.getElementById('map-canvas'), {
+//     center: 
+//         {lat: 12.9715987,lng: 77.59456269999998},
+//         zoom: 12
+//     });
+
+//     var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
+    
+//     map.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('pac-input'));
+    
+//     google.maps.event.addListener(searchBox, 'places_changed', function(){
+//         searchBox.set('map', null);
+//         var places = searchBox.getPlaces();
+//         var bounds = new google.maps.LatLngBounds();
+//         var i, place;
+//         for (i = 0; place = places[i]; i++) {
+//             (function(place) {
+//                 var marker = new google.maps.Marker({
+//                     position: place.geometry.location
+//                 });
+//                 marker.bindTo('map', searchBox, 'map');
+//                 google.maps.event.addListener(marker, 'map_changed', function() {
+//                     if (!this.getMap()) {
+//                         this.unbindAll();
+//                     }
+//                 });
+//                 bounds.extend(place.geometry.location);
+//             }(place));
+//         }
+//     map.fitBounds(bounds);
+//     searchBox.set('map', map);
+//     map.setZoom(Math.min(map.getZoom(),12));
+//     });
+// }
+
+//Edu haciendo que funcionen los marcadores
+var canPlace = false;
+var audio = new Audio('images/Click2-Sebastian-759472264.mp3');
+var dia = 'images/virgl_marker_today.png';
+var lastPlacedLoc;
+
+// function myKeyPress(0){
+//     dia = 'images/virgl_marker_today.png';
+// }
+// function myKeyPress(1){
+//     dia = 'images/virgl_marker_do.png';
+// }
+// function myKeyPress(2){
+//     dia = 'images/virgl_marker_lu.png';
+// }
+// function myKeyPress(3){
+//     dia = 'images/virgl_marker_ma.png';
+// }
+// function myKeyPress(4){
+//     dia = 'images/virgl_marker_mi.png';
+// }
+// function myKeyPress(5){
+//     dia = 'images/virgl_marker_ju.png';
+// }
+// function myKeyPress(6){
+//     dia = 'images/virgl_marker_vi.png';
+// }
+// function myKeyPress(7){
+//     dia = 'images/virgl_marker_sa.png';
+// }
+
+var html =  "<table>"+
+                "<tr id = 'select' onclick='windowInseguro()'>"+
+                    "<td><img src='images/virgl_icon_inseguro.png' onclick='windowInseguro()'></td>"+
+                    "<td><hi>Inseguridad</hi></td>"+
+                "</tr>"+
+                "<tr id = 'select' onclick='windowRobo()'>"+
+                    "<td><img src='images/virgl_icon_robo.png'></td>"+
+                    "<td><hi>Robo</hi></td>"+
+                "</tr>"+
+                "<tr id = 'select' onclick='windowAsalto()'>"+
+                    "<td><img src='images/virgl_icon_asalto.png'></td>"+
+                    "<td><hi>Asalto</hi></td>"+
+                "</tr>"+
+                "<tr id = 'select' onclick='windowCarro()'>"+
+                    "<td><img src='images/virgl_icon_carro.png'></td>"+
+                    "<td><hi>Robo Vehicular</hi></td>"+
+                "</tr>"+
+                "<tr id = 'select' onclick='windowHomicidio()'>"+
+                    "<td><img src='images/virgl_icon_homicidio.png'></td>"+
+                    "<td><hi>Homicidio</hi></td>"+
+                "</tr>"+
+            "</table>";
+
+var crimeIcon;
+
+var htmlInseguro = "<table>"+
+                "<tr id = 'secondPrompt'>"+
+                    "<td> <img src = 'images/virgl_icon_inseguro.png'> </td>"+
+                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                "</tr>"+
+            "<table>";
+//Ventanas de distintos delitos
+function windowInseguro(){
+    //infowindow.close();
+
+    var marker = new google.maps.Marker({
+            position: lastPlacedLoc,
+            map: map,
+            icon: dia,});
+
+    //crimeIcon = "<img src = 'images/virgl_icon_inseguro.png'>";
+
+    //variable que que es la info Window que sale con el marker
+    var infowindow = new google.maps.InfoWindow({
+        content: htmlInseguro});
+        
+    //se crean el mapa y el marcador
+    infowindow.open(map,marker);
 }
 
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }
+var htmlRobo = "<table>"+
+                "<tr id = 'secondPrompt'>"+
+                    "<td> <img src = 'images/virgl_icon_robo.png'> </td>"+
+                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                "</tr>"+
+            "<table>";
+function windowRobo(){
+    //infowindow.close();
+
+    var marker = new google.maps.Marker({
+            position: lastPlacedLoc,
+            map: map,
+            icon: dia,});
+
+    //crimeIcon = "<img src = 'images/virgl_icon_robo.png'>";
+
+    //variable que que es la info Window que sale con el marker
+    var infowindow = new google.maps.InfoWindow({
+        content: htmlRobo});
+        
+    //se crean el mapa y el marcador
+    infowindow.open(map,marker);
+}
+
+
+var htmlAsalto = "<table>"+
+                "<tr id = 'secondPrompt'>"+
+                    "<td> <img src = 'images/virgl_icon_asalto.png'> </td>"+
+                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                "</tr>"+
+            "<table>";
+function windowAsalto(){
+    //infowindow.close();
+
+    var marker = new google.maps.Marker({
+            position: lastPlacedLoc,
+            map: map,
+            icon: dia,});
+
+    //crimeIcon = "<img src = 'images/virgl_icon_asalto.png'>";
+
+    //variable que que es la info Window que sale con el marker
+    var infowindow = new google.maps.InfoWindow({
+        content: htmlAsalto});
+        
+    //se crean el mapa y el marcador
+    infowindow.open(map,marker);
+}
 
 
 
+var htmlCarro = "<table>"+
+                "<tr id = 'secondPrompt'>"+
+                    "<td> <img src = 'images/virgl_icon_carro.png'> </td>"+
+                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                "</tr>"+
+            "<table>";
+function windowCarro(){
+    //infowindow.close();
 
-//Intentando hacer searchbar funcional
-      function init() {
-   var map = new google.maps.Map(document.getElementById('map-canvas'), {
-     center: {
-       lat: 12.9715987,
-       lng: 77.59456269999998
-     },
-     zoom: 12
-   });
+    var marker = new google.maps.Marker({
+            position: lastPlacedLoc,
+            map: map,
+            icon: dia,});
 
+    //crimeIcon = "<img src = 'images/virgl_icon_carro.png'>";
 
-      var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
-   map.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('pac-input'));
-   google.maps.event.addListener(searchBox, 'places_changed', function() {
-     searchBox.set('map', null);
-
-
-     var places = searchBox.getPlaces();
-
-     var bounds = new google.maps.LatLngBounds();
-     var i, place;
-     for (i = 0; place = places[i]; i++) {
-       (function(place) {
-         var marker = new google.maps.Marker({
-
-           position: place.geometry.location
-         });
-         marker.bindTo('map', searchBox, 'map');
-         google.maps.event.addListener(marker, 'map_changed', function() {
-           if (!this.getMap()) {
-             this.unbindAll();
-           }
-         });
-         bounds.extend(place.geometry.location);
+    //variable que que es la info Window que sale con el marker
+    var infowindow = new google.maps.InfoWindow({
+        content: htmlCarro});
+        
+    //se crean el mapa y el marcador
+    infowindow.open(map,marker);
+}
 
 
-       }(place));
+var htmlHomicidio = "<table>"+
+                "<tr id = 'secondPrompt'>"+
+                    "<td> <img src = 'images/virgl_icon_homicidio.png'> </td>"+
+                    "<td><form action=''><textarea name='Description'>Describa brevemente</textarea></td>"+
+                    "<td><form action = ''><button>Reportar</button></form></td>"+
+                "</tr>"+
+            "<table>";
+function windowHomicidio(){
+    //infowindow.close();
 
-     }
-     map.fitBounds(bounds);
-     searchBox.set('map', map);
-     map.setZoom(Math.min(map.getZoom(),12));
+    var marker = new google.maps.Marker({
+            position: lastPlacedLoc,
+            map: map,
+            icon: dia,});
 
-   });
- }
- google.maps.event.addDomListener(window, 'load', init);
+    //crimeIcon = "<img src = 'images/virgl_icon_homicidio.png'>";
+
+    //variable que que es la info Window que sale con el marker
+    var infowindow = new google.maps.InfoWindow({
+        content: htmlHomicidio});
+        
+    //se crean el mapa y el marcador
+    infowindow.open(map,marker);
+}
 
 
 
-       initMap();
+function enableCanPlace(){
+    canPlace = true;
+    //audio.Play();
+    document.getElementById('buttonimg').src='images/virgl_button_down.png';
+}
+
+function placeMarker(location) { 
+    if(canPlace){    
+        //varible que es el marcador
+        var marker = new google.maps.Marker({
+            //atributo de posicion
+            position: location,
+            //atributo del mapa
+            map: map,
+            //icono
+            icon: dia,
+            //opcional, le puse la animacion DROP
+            animation:google.maps.Animation.DROP
+        });
+        
+        //variable que que es la info Window que sale con el marker
+        var infowindow = new google.maps.InfoWindow({content: html});
+        
+        //se crean el mapa y el marcador
+        infowindow.open(map,marker);
+
+        canPlace = false;
+        document.getElementById('buttonimg').src='images/virgl_button_up.png';
+        lastPlacedLoc = location;
+        setTimeout(function () { infowindow.close(); }, 5000);
+    }
+}
+function placeLocMarker(pos) { 
+    //varible que es el marcador
+    var marker = new google.maps.Marker({
+        //atributo de posicion
+        position: pos,
+        //atributo del mapa
+        map: map,
+        //icono
+        icon: 'images/virgl_marker_base.png',
+        //opcional, le puse la animacion DROP
+        animation:google.maps.Animation.DROP
+    });
+}
+
+//no hace nada la linea de abajo, rompe tdo
+//google.maps.event.addDomListener(window, 'load', init);
+
+google.maps.event.addDomListener(window, 'load', initMap);
+//initMap();
 
 
