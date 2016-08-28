@@ -202,48 +202,41 @@ var crimeIcon;
 var htmlInseguro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_inseguro.png'> </td>"+
-                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' placeholder='Reportar' onclick='infowindow.close()'/></form></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
             "<table>";
 
-var htmlInseguro = "<table>"+
-                "<tr id = 'secondPrompt'>"+
-                    "<td> <img src = 'images/virgl_icon_inseguro.png'> </td>"+
-                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' placeholder='Reportar' onclick='infowindow.close()'/></form></td>"+
-                "</tr>"+
-            "<table>";
 
 var htmlRobo = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_robo.png'> </td>"+
-                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
             "<table>";
 
 var htmlAsalto = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_asalto.png'> </td>"+
-                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
             "<table>";
 
 var htmlCarro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_carro.png'> </td>"+
-                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
             "<table>";
 
 var htmlHomicidio = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_homicidio.png'> </td>"+
-                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente...'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' value='Reportar'/></form></td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
             "<table>";
 
