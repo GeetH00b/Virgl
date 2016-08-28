@@ -6,7 +6,6 @@
       var map;
 
 
-
       function initMap() {
         var map = new google.maps.Map(document.getElementById('googleMap'), {
           center: {lat: -34.397, lng: 150.644},
@@ -18,7 +17,7 @@
 
        
 
-        // Try HTML5 geolocation.
+        // GEOLOCATION, inicia el mapa en donde esta el cliente
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -29,29 +28,30 @@
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
             map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
           });
         } else {
-          // Browser doesn't support Geolocation
+          ///por si no tiene geolocation el navegador
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
         ///LISTENER BAJO CONSTRUCCION
-        map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-        google.maps.event.addListener(map, 'click', function(event) {placeMarker(event.latLng);});
-
-
+        	google.maps.event.addListener(map, 'click', function(event) {
+	    		placeMarker(event.latLng);
+  			});
       }
+
+
       ///COLOCAR MARCADORES
       function placeMarker(location) {
   		var marker = new google.maps.Marker({
-    	position: location,
-    	map: map,
-  		});
-  		
-}
+	  		position: location,
+	    	map: map,
+  	  	});
+ 		 var infowindow = new google.maps.InfoWindow({
+    	 content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+      });
+  		infowindow.open(map,marker);
+	   }
 
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -61,6 +61,7 @@
                               'Error: Your browser doesn\'t support geolocation.');
       }
 
-       initMap();
+    initMap();
+    
 
 
