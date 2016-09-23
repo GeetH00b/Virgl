@@ -1,7 +1,4 @@
-// Note: This example requires that you consent to location sharing // Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
+
 var map
 ///variable para el manejo de la ficha de tiempo y fecha
 var date
@@ -21,7 +18,6 @@ function initMap() {
         mapTypeId:google.maps.MapTypeId.ROADMAP
     });
     
-    // infowindow = new google.maps.InfoWindow({map: map});
 
     // encontrar al cliente sobre el mapa si el cliente lo permite
     if (navigator.geolocation) {
@@ -30,8 +26,7 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            // infoWindow.setPosition(pos);
-            // infoWindow.setContent('Location found.');
+
             map.setCenter(pos);
             placeLocMarker(pos);
         }, function() {
@@ -41,7 +36,6 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
-    //map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
     //Un listner en el mapa, checa si hay un click, se corre un funcion evento con la cual se pone el markador
     google.maps.event.addListener(map, 'click', function(event) {placeMarker(event.latLng);
       //generar ficha de fecha al crear un marcador nuevo, y de pasada obtener el dia de la semana en el que se creo
@@ -75,13 +69,11 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setContent(browserHasGeolocation ?
                             'Error: The Geolocation service failed.' :
                             'Error: Your browser doesn\'t support geolocation.');
-                            //setTimeout(function () { infowindow.close(); }, 5000);
 }
 
 
 //haciendo que funcionen los marcadores
 var canPlace = false;
-//var audio = new Audio('images/Click2-Sebastian-759472264.mp3');
 var dia = 'images/virgl_marker_today.png';
 var lastPlacedLoc;
 
@@ -194,7 +186,6 @@ var htmlHomicidio = "<table>"+
 
 function enableCanPlace(){
     canPlace = true;
-    //audio.Play();
     document.getElementById('buttonimg').src='images/virgl_button_down.png';
 }
 
@@ -221,7 +212,6 @@ function placeMarker(location) {
         canPlace = false;
         document.getElementById('buttonimg').src='images/virgl_button_up.png';
         lastPlacedLoc = location;
-        ///setTimeout(function () { infowindow.close(); }, 5000);
     }
 }
 function placeLocMarker(pos) { 
@@ -238,9 +228,5 @@ function placeLocMarker(pos) {
     });
 }
 
-//no hace nada la linea de abajo, rompe tdo
-//google.maps.event.addDomListener(window, 'load', init);
-
 google.maps.event.addDomListener(window, 'load', initMap);
-//initMap();
 
