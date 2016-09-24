@@ -7,6 +7,7 @@ var day
 var poslat
 var poslng
 var infowindow 
+var logo = document.getElementById('buttonimg');
 
 function initMap() {
     
@@ -145,7 +146,7 @@ var htmlInseguro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_inseguro.png'> </td>"+
                     "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close();enable();'/></form></td>"+
                 "</tr>"+
             "<table>";
 
@@ -186,7 +187,9 @@ var htmlHomicidio = "<table>"+
 
 function enableCanPlace(){
     canPlace = true;
-    document.getElementById('buttonimg').src='images/virgl_button_down.png';
+    logo.src='images/virgl_button_down.png';
+    logo.className += "disabled"
+
 }
 
 function placeMarker(location) { 
@@ -226,6 +229,10 @@ function placeLocMarker(pos) {
         //opcional, le puse la animacion DROP
         animation:google.maps.Animation.DROP
     });
+}
+
+function enable(){
+    logo.className.replace(disabled, "");
 }
 
 google.maps.event.addDomListener(window, 'load', initMap);
