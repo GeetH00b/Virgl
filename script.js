@@ -146,7 +146,7 @@ var htmlInseguro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_inseguro.png'> </td>"+
                     "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
-                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close();enable();'/></form></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
             "<table>";
 
