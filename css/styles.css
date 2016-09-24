@@ -24,7 +24,6 @@ ul {
 }
 li{
     margin-left: 20px;
-   /* margin-top: 12px;*/
     float: left;
     display: block;
     color: white;
@@ -36,19 +35,21 @@ li p {
 p{
     margin: 0;
 }
-tr{
-    /*background-color: #727272;*/
+
+td{
+    padding: 1px;
+    vertical-align: center;
 }
-#select:hover{
+table, th, td {
+   border-collapse: collapse;  
+}
+#select:hover, tr:hover{
     background-color: #727272;
-    border-color: #727272;
     color: white;
 }
-td{
-    /*border-collapse: collapse;*/
-    border-spacing: 0;
-    padding: 3px;
-    /*vertical-align: middle;*/
+img {
+    margin-top: 5px;
+    bottom: 0px;
 }
 #navWrapper{
     vertical-align: middle;
@@ -71,11 +72,6 @@ td{
     z-index: 0;
 }
 
-/*#map {
-    height: 100%;
-    z-index:-1;
-}*/
-
 .controls {
     margin-top: 10px;
     border: 1px solid transparent;
@@ -85,37 +81,4 @@ td{
     height: 32px;
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3)
-}
-
-#pac-input {
-    background-color: #fff;
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-    margin-left: 12px;
-    padding; 0 11px 0 13px;
-    text-overflow: elipsis;
-    width: 300px;
-    z-index:4;
-    position: fixed;
-    top: 0px;
-    left: 510px;
-}
-
-#pac-input:focus {
-    border-color: #4d90fe;
-}
-
-.pac-container {
-    font-family: Roboto;
-}
-
-#type-selector label {
-    font-family: Roboto;
-    font-size: 13px;
-    font-weight: 300;
-}
-
-#target {
-    width:345px;
 }

@@ -87,7 +87,8 @@ var lastPlacedLoc;
 
 var html =  "<table>"+
                 "<tr id = 'select' onclick='infowindow.close();windowCrime(0);'>"+
-                    "<td><img src='images/virgl_icon_inseguro.png'></td>"+
+                        "<td><img src='images/virgl_icon_inseguro.png'></td>"+
+                    "</span>"+
                     "<td><hi>Inseguridad</hi></td>"+
                 "</tr>"+
                 "<tr id = 'select' onclick='infowindow.close();windowCrime(1)'>"+
@@ -103,6 +104,10 @@ var html =  "<table>"+
                     "<td><hi>Robo Vehicular</hi></td>"+
                 "</tr>"+
                 "<tr id = 'select' onclick='infowindow.close();windowCrime(4)'>"+
+                    "<td><img src='images/virgl_icon_balacera.png'></td>"+
+                    "<td><hi>Balacera</hi></td>"+
+                "</tr>"+
+                "<tr id = 'select' onclick='infowindow.close();windowCrime(5)'>"+
                     "<td><img src='images/virgl_icon_homicidio.png'></td>"+
                     "<td><hi>Homicidio</hi></td>"+
                 "</tr>"+
@@ -143,6 +148,12 @@ var crimeIcon;
         case  4:
             //variable que que es la info Window que sale con el marker
             infowindow = new google.maps.InfoWindow({
+                content: htmlBalacera})
+        break;
+
+        case  5:
+            //variable que que es la info Window que sale con el marker
+            infowindow = new google.maps.InfoWindow({
                 content: htmlHomicidio})
     }  
     //se crean el mapa y el marcador
@@ -177,6 +188,14 @@ var htmlAsalto = "<table>"+
 var htmlCarro = "<table>"+
                 "<tr id = 'secondPrompt'>"+
                     "<td> <img src = 'images/virgl_icon_carro.png'> </td>"+
+                    "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
+                    "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
+                "</tr>"+
+            "<table>";
+
+var htmlBalacera = "<table>"+
+                "<tr id = 'secondPrompt'>"+
+                    "<td> <img src = 'images/virgl_icon_balacera.png'> </td>"+
                     "<td><form action=''><textarea name='Description' placeholder='Describa brevemente'></textarea></td>"+
                     "<td><form action = ''><input type='submit' value='Reportar' onclick='infowindow.close()'/></form></td>"+
                 "</tr>"+
