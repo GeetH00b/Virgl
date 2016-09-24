@@ -3,6 +3,15 @@ html, body, #wrapper{
     width: 100%;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
+#navWrapper{
+    vertical-align: middle;
+    top: 15px;
+}
+#button{
+    z-index: 2;
+    position: fixed;
+    top: 50px;
+}
 nav{
     width: 100%;
     z-index: 1;
@@ -36,13 +45,15 @@ p{
     margin: 0;
 }
 
+table, th, td {
+   border-collapse: collapse;  
+}
+
 td{
     padding: 1px;
     vertical-align: center;
 }
-table, th, td {
-   border-collapse: collapse;  
-}
+
 #select:hover, tr:hover{
     background-color: #727272;
     color: white;
@@ -51,15 +62,7 @@ img {
     margin-top: 5px;
     bottom: 0px;
 }
-#navWrapper{
-    vertical-align: middle;
-    top: 15px;
-}
-#button{
-    z-index: 2;
-    position: fixed;
-    top: 50px;
-}
+
 #googleMap{
     height: 100%;
     width: 100%;
