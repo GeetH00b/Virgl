@@ -216,6 +216,11 @@ function enableCanPlace(){
     //audio.Play();
     document.getElementById('buttonimg').src='images/virgl_button_down.png';
 
+    //Quitar mensaje de ayuda
+    //document.getElementsByClassName("closebtn").parentNode.style.display='none';
+    //closeMessage();
+
+
     //mensaje de can place
     // Get the snackbar DIV
     var x = document.getElementById("snackbar")
@@ -274,7 +279,7 @@ var i;
 // Loop through all close buttons
 for (i = 0; i < close.length; i++) {
     // When someone clicks on a close button
-    close[i].onclick = function(){
+    close[i].onclick = function closeMessage(){
 
         // Get the parent of <span class="closebtn"> (<div class="alert">)
         var div = this.parentElement;

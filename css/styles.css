@@ -56,7 +56,7 @@ td{
     vertical-align: center;
 }
 
-#select:hover, tr:hover{
+#select:hover{
     background-color: #727272;
     color: white;
 }
