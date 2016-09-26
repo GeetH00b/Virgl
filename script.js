@@ -215,6 +215,16 @@ function enableCanPlace(){
     canPlace = true;
     //audio.Play();
     document.getElementById('buttonimg').src='images/virgl_button_down.png';
+
+    //mensaje de can place
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar")
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 
 function placeMarker(location) { 
@@ -257,8 +267,32 @@ function placeLocMarker(pos) {
     });
 }
 
+//transision para cerrar alerts
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+// Loop through all close buttons
+for (i = 0; i < close.length; i++) {
+    // When someone clicks on a close button
+    close[i].onclick = function(){
+
+        // Get the parent of <span class="closebtn"> (<div class="alert">)
+        var div = this.parentElement;
+
+        // Set the opacity of div to 0 (transparent)
+        div.style.opacity = "0";
+
+        // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+        setTimeout(function(){ div.style.display = "none"; }, 600);
+    }
+}
+
+
+
 //no hace nada la linea de abajo, rompe tdo
 //google.maps.event.addDomListener(window, 'load', init);
+
+
 
 google.maps.event.addDomListener(window, 'load', initMap);
 //initMap();

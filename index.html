@@ -22,8 +22,13 @@
 					</div>
 				</ul>
 				<div id = "button"> <img id = "buttonimg" src = "images/virgl_button_up.png" onclick="enableCanPlace()"></div>
+				<div class="alert_small">
+  					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><b> &#8592; Press to report a crime.</b>
+  				</div>
 			</nav>
-			
+			<div id ="snackbar">
+				Click anywhere to place pin.
+			</div>
 			<!-- El mapa -->
 			<div id="googleMap"></div>
 		
