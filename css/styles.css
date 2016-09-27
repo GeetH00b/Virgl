@@ -1,7 +1,17 @@
 html, body, #wrapper{
     height: 100%;
     width: 100%;
+    overflow: hidden;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+#navWrapper{
+    vertical-align: middle;
+    top: 15px;
+}
+#button{
+    z-index: 2;
+    position: fixed;
+    top: 50px;
 }
 nav{
     width: 100%;
@@ -28,6 +38,7 @@ li{
     display: block;
     color: white;
     height: 100%;
+    overflow: hidden;
 }
 li p {
     margin-top: 12px;
@@ -36,37 +47,125 @@ p{
     margin: 0;
 }
 
+table, th, td {
+   border-collapse: collapse;  
+}
+
 td{
     padding: 1px;
     vertical-align: center;
 }
-table, th, td {
-   border-collapse: collapse;  
-}
-#select:hover, tr:hover{
+
+#select:hover{
     background-color: #727272;
     color: white;
 }
-img {
+td img {
     margin-top: 5px;
     bottom: 0px;
 }
-#navWrapper{
-    vertical-align: middle;
-    top: 15px;
-}
-#button{
-    z-index: 2;
+
+
+/* The alert message box */
+.alert {
     position: fixed;
+    z-index: 5;
+    left: 0px;
     top: 50px;
+    width: 100%;
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 15px;
+    opacity: 1;
+    transition: opacity 0.6s; /* 600ms to fade out */
 }
+.alert_small{
+    position: fixed;
+    z-index: 5;
+    left: 150px;
+    top: 90px;
+    padding: 10px;
+    background-color: #333; /*#909090; Gris Virgl #f44336;  Red */
+    color: white;
+    margin-bottom: 15px;
+    opacity: 1;
+    transition: opacity 0.6s; /* 600ms to fade out */
+    /*box-shadow: 2px 2px 5px rgba(34,34,34,0.6);*/
+    border-radius: 2px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.alert .closebtn {
+    padding-right: 40px;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff; 
+    text-align: center; 
+    border-radius: 2px;
+    padding: 16px; 
+    position: fixed;
+    z-index: 1;
+    left: 50%; 
+    bottom: 30px;
+}
+
+#snackbar.show {
+    visibility: visible;
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+
 #googleMap{
     height: 100%;
     width: 100%;
     margin-top: 0px;
     margin-bottom: 0px;
     position: absolute;
-    right: 0;
     left: 0;
     top: 0;
     z-index: 0;
